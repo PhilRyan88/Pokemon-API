@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="52Fetch.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 style="color: white; position: relative; bottom: 20px">
+        Pokemon API
+      </h1>
+      <input type="text" class="input" />
+      <button class="btn">Search</button><br /><br />
+      <img src="" alt="" class="pokemon" />
+    </div>
+
+    <script>
+      var btn = document.querySelector(".btn");
+      async function fetchData() {
+        try {
+          var inputfield = document.querySelector(".input");
+          var fieldValue = inputfield.value.toLowerCase();
+          var imgTag = document.querySelector(".pokemon");
+
+          const response = await fetch(
+            `https://pokeapi.co/api/v2/pokemon/${fieldValue}`
+          );
+          const data = await response.json();
+          console.log(data);
+
+          const pokemonSprite = data.sprites.front_default;
+          imgTag.src = pokemonSprite;
+          imgTag.style.display = "block";
+        } catch (error) {
+          console.error(`error`);
+        }
+      }
+      btn.addEventListener("click", fetchData);
+      fetchData();
+    </script>
+  </body>
+</html>
